@@ -31,7 +31,28 @@ class TaskListScreen extends StatefulWidget {
 }
 
 class _TaskListScreenState extends State<TaskListScreen> {
-  List<Task> tasks = []; // List to store tasks
-  TextEditingController taskController =
-      TextEditingController(); // Controller for input field
+  List<Task> tasks = [];
+  TextEditingController taskController = TextEditingController();
+
+  void addTask() {
+    String taskName = taskController.text.trim();
+    if (taskName.isNotEmpty) {
+      setState(() {
+        tasks.add(Task(name: taskName));
+        taskController.clear();
+      });
+    }
+  }
+
+  void toggleTaskCompletion(int index) {
+    setState(() {
+      tasks[index].isCompleted = !tasks[index].isCompleted;
+    });
+  }
+
+  void deleteTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+    });
+  }
 }
